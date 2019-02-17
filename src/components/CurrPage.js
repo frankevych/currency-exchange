@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
-import CurrType from './curr_components/CurrType'
+import CurrType from "./curr_components/CurrType";
 import CurrValue from './curr_components/CurrValue'
-import {getCurrencies} from '../api/currencies';
+import { currenciesList } from '../api/currencies';
+
+
+
 
 class CurrPage extends Component {
-    currCalc = () => {
-        console.log("in CurrPage");
+    state = {
+        currency: currenciesList
     }
+
+    handleExchangeValue = (inputValue) => {
+    };
+
     render() {
+        console.log(this.state.currency);
         return (
             <div> 
-                {console.log(getCurrencies())}
-                <CurrValue currCalc={this.currCalc()} />
+                <CurrValue exchangeValue={this.handleExchangeValue} />
                 <div className="container btn-group space-between">
-                    <CurrType />
-                    <CurrType />
+                    <CurrType currData={this.state.currency}/>
+                    <CurrType currData={this.state.currency}/>
                 </div>
             </div>
         );
