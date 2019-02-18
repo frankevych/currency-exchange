@@ -7,10 +7,11 @@ import { currenciesList } from '../api/currencies';
 
 
 class CurrPage extends Component {
+    //list with currencies info 14elements in array
     state = {
         currency: currenciesList
     }
-
+    //
     handleExchangeValue = (inputValue) => {
     };
 

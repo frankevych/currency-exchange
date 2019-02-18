@@ -3,12 +3,20 @@ import React from 'react';
 class CurrType extends React.Component {
 
     state = {
-        currCD: '',
+        currCD: [],
     }
 
-    handleClick = () => {
-        console.log('handleClick CurrType')
-        console.log(this.props.currData);
+
+    componentWillMount() {
+        const { currData } = this.props;
+        const { currCD } = this.state
+        this.setState(currData.map((currency) => {
+            currCD.push(
+                <a className="dropdown-item" href="www.google.com">
+                    {currency.currency_code}
+                </a>
+            )
+        }))
     }
 
     render() {
@@ -17,14 +25,19 @@ class CurrType extends React.Component {
                 <button 
                     onClick={this.handleClick}
                     className="btn btn-secondary dropdown-toggle" 
-                    type="button" id="dropdownMenuButton" 
+                    type="button" 
+                    id="dropdownMenuButton" 
                     data-toggle="dropdown" 
                     aria-haspopup="true" 
                     aria-expanded="false"
                 >
                     Dropdown
                 </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div 
+                    className="dropdown-menu" 
+                    aria-labelledby="dropdownMenuButton"
+                >
+                    {this.state.currCD}
                 </div>
             </div>
         );
