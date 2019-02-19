@@ -4,15 +4,8 @@ class CurrType extends React.Component {
 
     state = {
         currCD: [],
-        //currencyCode: '',
     }
-    // choosenType = () => {
-    //     const {currCD} = this.state;
-    //     this.setState({ currencyCode: currCD.map((curr) => {
-    //         curr.currency_code
-    //     }) })
-    // }
-
+    
     handleClick = () => {
         const { currData } = this.props;
         const { currCD } = this.state;
