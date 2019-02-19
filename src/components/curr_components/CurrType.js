@@ -6,17 +6,20 @@ class CurrType extends React.Component {
         currCD: [],
     }
 
-
-    componentWillMount() {
+    handleClick = () => {
         const { currData } = this.props;
-        const { currCD } = this.state
-        this.setState(currData.map((currency) => {
+        const { currCD } = this.state;
+        this.setState(currData.map((currency) => 
             currCD.push(
-                <a className="dropdown-item" href="www.google.com">
+                <button 
+                    key={currency.currency_code} 
+                    className="dropdown-item"
+                    onClick={this.props.choosenType.bind(this, currency.currency_code)}
+                >
                     {currency.currency_code}
-                </a>
+                </button>
             )
-        }))
+        ))
     }
 
     render() {
@@ -40,8 +43,7 @@ class CurrType extends React.Component {
                     {this.state.currCD}
                 </div>
             </div>
-        );
-    }
-    ;
+        )
+    };
 }
 export default CurrType

@@ -15,14 +15,19 @@ class CurrPage extends Component {
     handleExchangeValue = (inputValue) => {
     };
 
+    handleChoosenType = (currency_code) => {
+        console.log('in currpage handle choos type')
+        console.log(currency_code)
+    }
+
     render() {
         console.log(this.state.currency);
         return (
             <div> 
                 <CurrValue exchangeValue={this.handleExchangeValue} />
                 <div className="container btn-group space-between">
-                    <CurrType currData={this.state.currency}/>
-                    <CurrType currData={this.state.currency}/>
+                    <CurrType currData={this.state.currency} choosenType={this.handleChoosenType} />
+                    <CurrType currData={this.state.currency} choosenType={this.handleChoosenType} />
                 </div>
             </div>
         );
