@@ -7,7 +7,7 @@ class CurrValue extends Component {
     handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     handleClick = (e) => {
-        console.log('in handleclick')
+        console.log('in handleclick CurrValue')
         e.preventDefault();
         this.props.exchangeValue(this.state.amount);
         this.setState({ amount: '' });
@@ -15,8 +15,8 @@ class CurrValue extends Component {
 
     render() {
         return (
-            <div className="container pb-2">
-                <div className="input-group flex-nowrap">
+            <div className="pb-2">
+                <div className="input-group">
                     <input 
                         name ="amount" 
                         value={this.state.amount} 
@@ -24,8 +24,6 @@ class CurrValue extends Component {
                         onChange={this.handleChange} 
                         className="form-control" 
                         placeholder="enter amount.." 
-                        aria-label="Username" 
-                        aria-describedby="addon-wrapping"
                     />
                     <button type="submit" onClick={this.handleClick}>
                         Click
