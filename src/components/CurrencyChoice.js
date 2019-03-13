@@ -1,20 +1,24 @@
 import React from 'react';
 
-class CurrType extends React.Component {
-
+class CurrencyChoice extends React.Component {
+    //list with currencies code
     state = {
-        currCD: [],
+        codeButtons: [],
     }
     
-    handleClick = () => {
-        const { currData } = this.props;
-        const { currCD } = this.state;
-        this.setState(currData.map((currency) => 
-            currCD.push(    
+    /**
+     * creating buttons per each element in currencyData &
+     * sets State codeButtons[]
+     */
+    handleDopdownMenuClick = () => {
+        const { currencyData } = this.props;
+        const { codeButtons } = this.state;
+        this.setState(currencyData.map((currency) => 
+            codeButtons.push(    
                 <button 
                 key={currency.currency_code} 
                 className="dropdown-item"
-                onClick={this.props.choosenType.bind(this, currency.currency_code)}
+                onClick={this.props.choosenCode.bind(this, currency.currency_code)}
                 >
                     {currency.currency_code}
                 </button>
@@ -26,7 +30,7 @@ class CurrType extends React.Component {
         return (
             <div className='dropdown'>
                 <button 
-                    onClick={this.handleClick}
+                    onClick={this.handleDopdownMenuClick}
                     className="btn btn-secondary dropdown-toggle" 
                     type="button" 
                     id="dropdownMenuButton" 
@@ -40,10 +44,10 @@ class CurrType extends React.Component {
                     className="dropdown-menu" 
                     aria-labelledby="dropdownMenuButton"
                 >
-                    {this.state.currCD}
+                    {this.state.codeButtons}
                 </div>
             </div>
         )
     };
 }
-export default CurrType
+export default CurrencyChoice
