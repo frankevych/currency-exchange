@@ -9,6 +9,9 @@ class CalculatorExchange extends Component {
     state = {
         currency: currenciesList,
         amount: '',
+        medianFrom: '',
+        medianTo: '',
+        result: '',
     }
     //event handler for user input.
     handleInputAmount = (e) => this.setState({ [e.target.name]: [e.target.value] });
@@ -16,51 +19,47 @@ class CalculatorExchange extends Component {
     //event handler calculate the result of exchange
     //this func uses medianFrom & medianTo data choosen by user in handleChoosenCode func
     handleCalculate = () => {
-        console.log('in handlecalculate');
-        console.log('we need amount: ' + this.state.amount);
-        console.log('we need medianFrom: ' + this.state.medianFrom);
-        console.log('we need medianTo: ' + this.state.medianTo);
-        // this.props.exchangeValue(this.state.amount);
-        // this.setState({ amount: '' });
+        const { amount, medianFrom, medianTo } = this.state;
+        let result = (amount * medianFrom) / medianTo;
+        result = result.toFixed(2);
+        this.setState({ result: result });
     };
-
     //based on code choosen by user, sets state with median rate of value from
     handleChoosenCodeFrom = (currency_code) => {
-        console.log('clicked in code: ' + currency_code);
         const { currency } = this.state;
         var medianFrom;
 
         currency.map((item) => {
             if(item.currency_code === currency_code) {
-                console.log('currency.median_rate: '+ item.median_rate);
                 medianFrom = item.median_rate;
             }
         })
-        console.log('after cycle: ' + medianFrom)
         this.setState({ medianFrom });
     }
 
     //based on code choosen by user, sets state with median rate of value to
     handleChoosenCodeTo = (currency_code) => {
-        console.log('clicked in code: ' + currency_code);
         const { currency } = this.state;
         var medianTo;
-        
         currency.map((item) => {
             if(item.currency_code === currency_code) {
-                console.log('currency.median_rate: '+ item.median_rate);
                 medianTo = item.median_rate;
             }
         })
-        console.log('after cycle: ' + medianTo)
         this.setState({ medianTo });
     }
 
     render() {
         return (
-            <div> 
+            <div className="parentFlex"> 
+                <CurrencyChoice currencyData={this.state.currency} choosenCode={this.handleChoosenCodeFrom}>
+                    { } From
+                </CurrencyChoice>
+                <CurrencyChoice currencyData={this.state.currency} choosenCode={this.handleChoosenCodeTo}>
+                    { } To
+                </CurrencyChoice>
 
-                <div className="pb-2">
+                <div className="input-field pb-2">
                     <div className="input-group">
                         <input 
                             name ="amount" 
@@ -71,26 +70,10 @@ class CalculatorExchange extends Component {
                             placeholder="enter amount.." 
                         />
                         <button type="submit" onClick={this.handleCalculate}>
-                            Click
+                            { this.state.result || 'Calculate' }
                         </button>
                     </div>
                 </div>
-
-                <div className="container btn-group space-between">
-                    <CurrencyChoice currencyData={this.state.currency} choosenCode={this.handleChoosenCodeFrom} />
-                    <p>
-                        {this.state.currencyCodeFrom}
-                        its mediana is:
-                        {this.state.medianFrom}
-                    </p>
-                    <CurrencyChoice currencyData={this.state.currency} choosenCode={this.handleChoosenCodeTo} />
-                    <p>
-                        {this.state.currencyCodeTo}
-                        its mediana is:
-                        {this.state.medianTo}
-                    </p>
-                </div>
-
             </div>
         );
     }

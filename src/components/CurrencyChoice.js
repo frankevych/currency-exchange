@@ -28,7 +28,7 @@ class CurrencyChoice extends React.Component {
 
     render() {
         return (
-            <div className='dropdown'>
+            <div className='dropdown pr-4'>
                 <button 
                     onClick={this.handleDopdownMenuClick}
                     className="btn btn-secondary dropdown-toggle" 
@@ -37,8 +37,9 @@ class CurrencyChoice extends React.Component {
                     data-toggle="dropdown" 
                     aria-haspopup="true" 
                     aria-expanded="false"
-                >
-                    Dropdown
+                    >
+                    Currency
+                    {this.props.children}
                 </button>
                 <div 
                     className="dropdown-menu" 

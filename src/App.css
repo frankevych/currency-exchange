@@ -1,6 +1,15 @@
+.parentFlex {
+  display: flex;
+  justify-content: center;
+}
 .space-between {
   justify-content: space-around;
 }
 .dropdown-item {
   color: black;
+}
+.input-field {
+  width: 20%;
+}
+.result {
 }
