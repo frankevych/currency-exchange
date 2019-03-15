@@ -38,7 +38,6 @@ class CurrencyChoice extends React.Component {
                     aria-haspopup="true" 
                     aria-expanded="false"
                     >
-                    Currency
                     {this.props.children}
                 </button>
                 <div 

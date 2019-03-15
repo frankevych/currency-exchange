@@ -1,10 +1,10 @@
-// import axios from 'axios';
+import axios from 'axios';
 
-// const proxy = "https://cors-anywhere.herokuapp.com/";
-// const baseURL = `${proxy}http://hnbex.eu/api/v1/rates/daily`;
+const proxy = "https://cors-anywhere.herokuapp.com";
+const baseURL = `${proxy}/http://hnbex.eu/api/v1/rates/daily/`;
 
-// const axiosInstance = axios.create({
-//     baseURL: baseURL
-// });
+const axiosInstance = axios.create({
+    baseURL: baseURL
+});
 
-//export default axiosInstance
+export default axiosInstance

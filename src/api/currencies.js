@@ -1,9 +1,9 @@
-// import axiosInstance from './axios-base'
+import axiosInstance from './axios-base'
 
-// export const getCurrencies = () => {
-//     console.log('in getCurrencies')
-//     return axiosInstance.get(`/?date=2019-02-17`);
-// }
+export const getCurrencies = () => {
+    console.log('in getCurrencies ' + axiosInstance.get());
+    return axiosInstance.get();
+}
 
 export const currenciesList = [
     {"buying_rate": "4.648922", "selling_rate": "4.676900", "median_rate": "4.662911", "currency_code": "AUD", "unit_value": 1}, 

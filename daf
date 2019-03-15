@@ -1,0 +1,170 @@
+warning: LF will be replaced by CRLF in src/components/CalculatorExchange.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/components/CurrencyChoice.js.
+The file will have its original line endings in your working directory
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex 4d29575..b778b3d 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -1,5 +1,8 @@[m
+ # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.[m
+ [m
+[32m+[m[32m#ignore[m
+[32m+[m[32mcurrency-exchange.txt[m
+[32m+[m
+ # dependencies[m
+ /node_modules[m
+ /.pnp[m
+[36m@@ -21,3 +24,4 @@[m
+ npm-debug.log*[m
+ yarn-debug.log*[m
+ yarn-error.log*[m
+[41m+[m
+[1mdiff --git a/src/App.css b/src/App.css[m
+[1mindex 7381c7a..7bb98a8 100644[m
+[1m--- a/src/App.css[m
+[1m+++ b/src/App.css[m
+[36m@@ -9,7 +9,7 @@[m
+   color: black;[m
+ }[m
+ .input-field {[m
+[31m-  width: 20%;[m
+[32m+[m[32m  width: 30%;[m
+ }[m
+ .result {[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/api/axios-base.js b/src/api/axios-base.js[m
+[1mindex af08d25..753e7e0 100644[m
+[1m--- a/src/api/axios-base.js[m
+[1m+++ b/src/api/axios-base.js[m
+[36m@@ -1,10 +1,10 @@[m
+[31m-// import axios from 'axios';[m
+[32m+[m[32mimport axios from 'axios';[m
+ [m
+[31m-// const proxy = "https://cors-anywhere.herokuapp.com/";[m
+[31m-// const baseURL = `${proxy}http://hnbex.eu/api/v1/rates/daily`;[m
+[32m+[m[32mconst proxy = "https://cors-anywhere.herokuapp.com";[m
+[32m+[m[32mconst baseURL = `${proxy}/http://hnbex.eu/api/v1/rates/daily/`;[m
+ [m
+[31m-// const axiosInstance = axios.create({[m
+[31m-//     baseURL: baseURL[m
+[31m-// });[m
+[32m+[m[32mconst axiosInstance = axios.create({[m
+[32m+[m[32m    baseURL: baseURL[m
+[32m+[m[32m});[m
+ [m
+[31m-//export default axiosInstance[m
+\ No newline at end of file[m
+[32m+[m[32mexport default axiosInstance[m
+\ No newline at end of file[m
+[1mdiff --git a/src/api/currencies.js b/src/api/currencies.js[m
+[1mindex 5d340a5..d7d50ed 100644[m
+[1m--- a/src/api/currencies.js[m
+[1m+++ b/src/api/currencies.js[m
+[36m@@ -1,9 +1,9 @@[m
+[31m-// import axiosInstance from './axios-base'[m
+[32m+[m[32mimport axiosInstance from './axios-base'[m
+ [m
+[31m-// export const getCurrencies = () => {[m
+[31m-//     console.log('in getCurrencies')[m
+[31m-//     return axiosInstance.get(`/?date=2019-02-17`);[m
+[31m-// }[m
+[32m+[m[32mexport const getCurrencies = () => {[m
+[32m+[m[32m    console.log('in getCurrencies ' + axiosInstance.get());[m
+[32m+[m[32m    return axiosInstance.get();[m
+[32m+[m[32m}[m
+ [m
+ export const currenciesList = [[m
+     {"buying_rate": "4.648922", "selling_rate": "4.676900", "median_rate": "4.662911", "currency_code": "AUD", "unit_value": 1}, [m
+[1mdiff --git a/src/components/CalculatorExchange.js b/src/components/CalculatorExchange.js[m
+[1mindex 1b1dafe..0efd9aa 100644[m
+[1m--- a/src/components/CalculatorExchange.js[m
+[1m+++ b/src/components/CalculatorExchange.js[m
+[36m@@ -1,6 +1,6 @@[m
+ import React, { Component } from 'react';[m
+ import CurrencyChoice from "./CurrencyChoice";[m
+[31m-import { currenciesList } from '../api/currencies';[m
+[32m+[m[32mimport { currenciesList, getCurrencies } from '../api/currencies';[m
+ [m
+ class CalculatorExchange extends Component {[m
+     /**[m
+[36m@@ -9,6 +9,8 @@[m [mclass CalculatorExchange extends Component {[m
+     state = {[m
+         currency: currenciesList,[m
+         amount: '',[m
+[32m+[m[32m        currencyCodeFrom: '',[m
+[32m+[m[32m        currencyCodeTo: '',[m
+         medianFrom: '',[m
+         medianTo: '',[m
+         result: '',[m
+[36m@@ -20,8 +22,8 @@[m [mclass CalculatorExchange extends Component {[m
+     //this func uses medianFrom & medianTo data choosen by user in handleChoosenCode func[m
+     handleCalculate = () => {[m
+         const { amount, medianFrom, medianTo } = this.state;[m
+[31m-        let result = (amount * medianFrom) / medianTo;[m
+[31m-        result = result.toFixed(2);[m
+[32m+[m[32m        let result = ((amount * medianFrom) / medianTo).toFixed(2);[m
+[32m+[m[32m        //result = result.toFixed(2);[m
+         this.setState({ result: result });[m
+     };[m
+     //based on code choosen by user, sets state with median rate of value from[m
+[36m@@ -34,7 +36,10 @@[m [mclass CalculatorExchange extends Component {[m
+                 medianFrom = item.median_rate;[m
+             }[m
+         })[m
+[31m-        this.setState({ medianFrom });[m
+[32m+[m[32m        this.setState({[m[41m [m
+[32m+[m[32m            medianFrom,[m
+[32m+[m[32m            currencyCodeFrom: currency_code,[m[41m [m
+[32m+[m[32m        });[m
+     }[m
+ [m
+     //based on code choosen by user, sets state with median rate of value to[m
+[36m@@ -46,17 +51,29 @@[m [mclass CalculatorExchange extends Component {[m
+                 medianTo = item.median_rate;[m
+             }[m
+         })[m
+[31m-        this.setState({ medianTo });[m
+[32m+[m[32m        this.setState({[m[41m [m
+[32m+[m[32m            medianTo,[m
+[32m+[m[32m            currencyCodeTo: currency_code,[m
+[32m+[m[32m        });[m
+     }[m
+ [m
+     render() {[m
+[32m+[m[32m        console.log(getCurrencies());[m
+         return ([m
+             <div className="parentFlex"> [m
+[31m-                <CurrencyChoice currencyData={this.state.currency} choosenCode={this.handleChoosenCodeFrom}>[m
+[31m-                    { } From[m
+[32m+[m
+[32m+[m[32m                <CurrencyChoice[m[41m [m
+[32m+[m[32m                    currencyData={this.state.currency}[m[41m [m
+[32m+[m[32m                    choosenCode={this.handleChoosenCodeFrom}[m[41m [m
+[32m+[m[32m                >[m
+[32m+[m[32m                   {} From { this.state.currencyCodeFrom }[m
+                 </CurrencyChoice>[m
+[31m-                <CurrencyChoice currencyData={this.state.currency} choosenCode={this.handleChoosenCodeTo}>[m
+[31m-                    { } To[m
+[32m+[m
+[32m+[m[32m                <CurrencyChoice[m[41m [m
+[32m+[m[32m                    currencyData={this.state.currency}[m[41m [m
+[32m+[m[32m                    choosenCode={this.handleChoosenCodeTo}[m[41m [m
+[32m+[m[32m                >[m
+[32m+[m[32m                   {} To { this.state.currencyCodeTo }[m
+                 </CurrencyChoice>[m
+ [m
+                 <div className="input-field pb-2">[m
+[1mdiff --git a/src/components/CurrencyChoice.js b/src/components/CurrencyChoice.js[m
+[1mindex 0179f7a..5fd815b 100644[m
+[1m--- a/src/components/CurrencyChoice.js[m
+[1m+++ b/src/components/CurrencyChoice.js[m
+[36m@@ -38,7 +38,6 @@[m [mclass CurrencyChoice extends React.Component {[m
+                     aria-haspopup="true" [m
+                     aria-expanded="false"[m
+                     >[m
+[31m-                    Currency[m
+                     {this.props.children}[m
+                 </button>[m
+                 <div [m
