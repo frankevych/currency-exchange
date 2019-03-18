@@ -16,7 +16,7 @@ class CurrencyChoice extends React.Component {
         this.setState(currencyData.map((currency) => 
             codeButtons.push(    
                 <button 
-                key={currency.currency_code} 
+                key={currency.median_rate} 
                 className="dropdown-item"
                 onClick={this.props.choosenCode.bind(this, currency.currency_code)}
                 >

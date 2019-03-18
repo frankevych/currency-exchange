@@ -1,0 +1,17 @@
+The application has 2 pages and a top bar navigation. The order of items in the navigation is not
+important.
+The first page is a currency calculator. It enables selection of currencies and entering the
+amount which is recalculated using the median exchange rate. 
+The second page is a list/table which shows current exchange rate (buying, selling and median)
+for all available currencies.
+The application should be responsive (mobile/tablet/desktop).
+A REST API is available at the following URL: http://hnbex.eu/api/ v1/
+The documentation does not contain this, but if you need, you can send **from** and **to**
+query parameters to get rates in a date range - http://hnbex.eu/api/v1/rates/EUR/? from=2017-11-1&to=2017-11-06
+We want to see how you think and solve problems. 
+You should use React for the solution, but can also use any other third party libs (e.g. for state management, UI, ...). 
+I hope you’ll find an assignment interesting and that you’ll use it to show us what you know.
+
+
+
+http://hnbex.eu/api/v1/

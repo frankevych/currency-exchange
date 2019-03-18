@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CurrencyChoice from "./CurrencyChoice";
-import { currenciesList, getCurrencies } from '../api/currencies';
+import { getCurrencies } from '../api/currencies';
 import CurrenciesList from './CurrenciesList';
 
 class CalculatorExchange extends Component {
@@ -8,12 +8,18 @@ class CalculatorExchange extends Component {
      * currency: array of objects(currency Data)
      */
     state = {
-        currency: currenciesList,
+        currency: [],
         amount: '',
         medianFrom: '',
         medianTo: '',
         result: '',
-    }
+    };
+
+    componentDidMount() {
+        getCurrencies()
+          .then(res => this.setState({ currency: res.data }))
+    };
+
     //event handler for user input.
     handleInputAmount = (e) => this.setState({ [e.target.name]: [e.target.value] });
 
@@ -57,7 +63,7 @@ class CalculatorExchange extends Component {
     }
 
     render() {
-        console.log(getCurrencies());
+        var result = getCurrencies().then((res) => { return res.data });
         return (
             <div className="parentBlock">
                 <div className="parentFlex"> 
@@ -92,6 +98,7 @@ class CalculatorExchange extends Component {
                         </div>
                     </div>
                 </div>
+                
                 <CurrenciesList currencyData={this.state.currency}/>
             </div>
         );

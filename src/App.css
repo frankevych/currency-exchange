@@ -2,8 +2,6 @@
   display: flex;
   justify-content: center;
 }
-.parentBlock {
-}
 .dropdown-item {
   color: black;
 }

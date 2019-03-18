@@ -6,23 +6,24 @@ class CurrenciesList extends Component {
     }
 
     //push currencies data li for each curency in api, into currecies state array.
-    componentDidMount() {
+    componentDidUpdate() {
         const { currencyData } = this.props;
         const { currencies } = this.state;
-        this.setState(currencyData.map((i) => {
-            currencies.push(
-                <li
-                    key={ i.currency_code }
-                    className="list-group-item" 
-                    onClick={this.reCalculateCurrencyFor}
-                >
-                    <p className="code inline-block mx-3">{ i.currency_code }</p>
-                    <p className="selling-rate inline-block mx-3">{ i.selling_rate } {}</p>
-                    <p className="buying-rate inline-block mx-3">{ i.buying_rate } {}</p>
-                    <p className="median-rate inline-block mx-3">{ i.median_rate } {}</p>
-                </li>
-            )
-        }));
+        if(currencies.length !== currencyData.length){
+            this.setState(currencyData.map((i) => {
+                currencies.push(
+                    <li
+                        key={ i.currency_code }
+                        className="list-group-item"
+                    >
+                        <p className="code inline-block mx-3">{ i.currency_code }</p>
+                        <p className="selling-rate inline-block mx-3">{ i.selling_rate } {}</p>
+                        <p className="buying-rate inline-block mx-3">{ i.buying_rate } {}</p>
+                        <p className="median-rate inline-block mx-3">{ i.median_rate } {}</p>
+                    </li>
+                )
+            }));
+        }
     }
     render() {
         return (

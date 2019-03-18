@@ -2,6 +2,7 @@
 
 #ignore
 currency-exchange.txt
+.daf
 
 # dependencies
 /node_modules
