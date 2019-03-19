@@ -10,6 +10,8 @@ class CalculatorExchange extends Component {
     state = {
         currency: [],
         amount: '',
+        currencyCodeFrom: '',
+        currencyCodeTo: '',
         medianFrom: '',
         medianTo: '',
         result: '',
@@ -32,32 +34,17 @@ class CalculatorExchange extends Component {
         this.setState({ result: result });
     };
     //based on code choosen by user, sets state with median rate of value from
-    handleChoosenCodeFrom = (currency_code) => {
-        const { currency } = this.state;
-        var medianFrom;
-
-        currency.map((item) => {
-            if(item.currency_code === currency_code) {
-                medianFrom = item.median_rate;
-            }
-        })
+    handleChoosenCodeFrom = ([currency_code, median_rate]) => {
         this.setState({ 
-            medianFrom,
+            medianFrom: median_rate,
             currencyCodeFrom: currency_code, 
         });
     }
 
     //based on code choosen by user, sets state with median rate of value to
-    handleChoosenCodeTo = (currency_code) => {
-        const { currency } = this.state;
-        var medianTo;
-        currency.map((item) => {
-            if(item.currency_code === currency_code) {
-                medianTo = item.median_rate;
-            }
-        })
+    handleChoosenCodeTo = ([currency_code, median_rate]) => {
         this.setState({ 
-            medianTo,   
+            medianTo: median_rate,   
             currencyCodeTo: currency_code,
         });
     }
