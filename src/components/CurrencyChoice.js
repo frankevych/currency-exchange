@@ -11,10 +11,10 @@ class CurrencyChoice extends React.Component {
      * sets State codeButtons[]
      */
     handleDopdownMenuClick = () => {
-        const { currencyData } = this.props;
-        const { codeButtons } = this.state;
-        this.setState(currencyData.map((currency) => 
-            codeButtons.push(    
+        const arr = [];
+        
+        this.props.currencyData.map((currency) => 
+            arr.push(    
                 <button 
                 key={currency.currency_code} 
                 className="dropdown-item"
@@ -23,12 +23,13 @@ class CurrencyChoice extends React.Component {
                     {currency.currency_code}
                 </button>
             )
-        ))
+        );
+        this.setState({ codeButtons: arr });
     }
 
     render() {
         return (
-            <div className='dropdown pr-4'>
+            <div className='dropdown px-4'>
                 <button 
                     onClick={this.handleDopdownMenuClick}
                     className="btn btn-secondary dropdown-toggle" 
@@ -38,7 +39,7 @@ class CurrencyChoice extends React.Component {
                     aria-haspopup="true" 
                     aria-expanded="false"
                     >
-                    {this.props.children}
+                    Currency { this.props.children }
                 </button>
                 <div 
                     className="dropdown-menu" 

@@ -17,6 +17,7 @@ class CalculatorExchange extends Component {
         result: '',
     };
 
+    //get data from api, set state currency with it
     componentDidMount() {
         getCurrencies()
           .then(res => this.setState({ currency: res.data }))
@@ -26,13 +27,14 @@ class CalculatorExchange extends Component {
     handleInputAmount = (e) => this.setState({ [e.target.name]: [e.target.value] });
 
     //event handler calculate the result of exchange
-    //this func uses medianFrom & medianTo data choosen by user in handleChoosenCode func
+    //this func uses medianFrom & medianTo state choosen by user in handleChoosenCode func
     handleCalculate = () => {
         const { amount, medianFrom, medianTo } = this.state;
         let result = ((amount * medianFrom) / medianTo).toFixed(2);
-        //result = result.toFixed(2);
-        this.setState({ result: result });
+
+        this.setState({ result });
     };
+
     //based on code choosen by user, sets state with median rate of value from
     handleChoosenCodeFrom = ([currency_code, median_rate]) => {
         this.setState({ 
@@ -50,44 +52,50 @@ class CalculatorExchange extends Component {
     }
 
     render() {
-        var result = getCurrencies().then((res) => { return res.data });
         return (
-            <div className="parentBlock">
-                <div className="parentFlex"> 
-
-                    <CurrencyChoice 
-                        currencyData={this.state.currency} 
-                        choosenCode={this.handleChoosenCodeFrom} 
-                    >
-                    {} Currency { this.state.currencyCodeFrom }
-                    </CurrencyChoice>
+                <div className="card">
+                    <div className="card-header">
                     
-                    <CurrencyChoice 
-                        currencyData={this.state.currency} 
-                        choosenCode={this.handleChoosenCodeTo} 
-                    >
-                    {} Currency { this.state.currencyCodeTo }
-                    </CurrencyChoice>
+                       <div className="parentFlex my-5">
+                            <CurrencyChoice 
+                                currencyData={this.state.currency} 
+                                choosenCode={this.handleChoosenCodeFrom} 
+                            >
+                            { this.state.currencyCodeFrom }
+                            </CurrencyChoice>
 
-                    <div className="input-field pb-2">
-                        <div className="input-group">
-                            <input 
-                                name ="amount" 
-                                value={this.state.amount} 
-                                type="text" 
-                                onChange={this.handleInputAmount} 
-                                className="form-control" 
-                                placeholder="enter amount.." 
-                            />
-                            <button type="submit" onClick={this.handleCalculate}>
-                                { this.state.result || 'Calculate' }
-                            </button>
+                            <CurrencyChoice 
+                                currencyData={this.state.currency} 
+                                choosenCode={this.handleChoosenCodeTo} 
+                            >
+                            { this.state.currencyCodeTo }
+                            </CurrencyChoice>
+
+                            <div className="input-field ml-5">
+                                <div className="input-group">
+                                    <input 
+                                        name ="amount" 
+                                        value={this.state.amount} 
+                                        type="text" 
+                                        onChange={this.handleInputAmount} 
+                                        className="form-control" 
+                                        placeholder="enter amount.." 
+                                    />
+                                    <button type="submit" onClick={this.handleCalculate}>
+                                        { this.state.result || 'Result' }
+                                    </button>
+                                </div>
+                            </div>
+                       </div>     
+                        
+                        <div className="card">
+                            <div className="card-body">
+                                <CurrenciesList currencyData={this.state.currency}/>
+                            </div>
                         </div>
+
                     </div>
                 </div>
-                
-                <CurrenciesList currencyData={this.state.currency}/>
-            </div>
         );
     }
 }

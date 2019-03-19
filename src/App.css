@@ -11,7 +11,6 @@
 .list-group {
   display: flex;
   justify-content: space-between;
-  padding: 0 0.3em;
 }
 .code {
   font-weight: 600;
@@ -34,10 +33,4 @@
 }
 .list-group-item {
   text-align: center;
-}
-.list-group-item p {
-  vertical-align: -1em;
-}
-.parentBlock > .list-group-item {
-  border-style: none;
 }
