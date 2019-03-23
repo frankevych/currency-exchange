@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CurrencyChoice from "./CurrencyChoice";
 import { getCurrencies } from '../api/currencies';
-import CurrenciesList from './CurrenciesList';
+import CurrenciesTable from './CurrenciesTable';
 
 class CalculatorExchange extends Component {
     /**
@@ -90,7 +90,7 @@ class CalculatorExchange extends Component {
                         
                         <div className="card">
                             <div className="card-body">
-                                <CurrenciesList currencyData={this.state.currency}/>
+                                <CurrenciesTable currencyData={this.state.currency}/>
                             </div>
                         </div>
 
