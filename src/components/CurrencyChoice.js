@@ -11,10 +11,11 @@ class CurrencyChoice extends React.Component {
      * sets State codeButtons[]
      */
     handleDopdownMenuClick = () => {
-        const arr = [];
-        
-        this.props.currencyData.map((currency) => 
-            arr.push(    
+        const { currencyData } = this.props;
+        const codeButtons = [];
+
+        currencyData.map((currency) => 
+            codeButtons.push(    
                 <button 
                 key={currency.currency_code} 
                 className="dropdown-item"
@@ -24,31 +25,35 @@ class CurrencyChoice extends React.Component {
                 </button>
             )
         );
-        this.setState({ codeButtons: arr });
+        this.setState({ codeButtons });
     }
 
     render() {
-        return (
-            <div className='dropdown px-4'>
-                <button 
-                    onClick={this.handleDopdownMenuClick}
-                    className="btn btn-secondary dropdown-toggle" 
-                    type="button" 
-                    id="dropdownMenuButton" 
-                    data-toggle="dropdown" 
-                    aria-haspopup="true" 
-                    aria-expanded="false"
+        if(this.props.currencyData.length === 0){
+            return <div>no info</div>
+        } else {
+            return (
+                <div className='dropdown px-4'>
+                    <button 
+                        onClick={this.handleDopdownMenuClick}
+                        className="btn btn-secondary dropdown-toggle" 
+                        type="button" 
+                        id="dropdownMenuButton" 
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false"
+                        >
+                        Currency { this.props.children }
+                    </button>
+                    <div 
+                        className="dropdown-menu" 
+                        aria-labelledby="dropdownMenuButton"
                     >
-                    Currency { this.props.children }
-                </button>
-                <div 
-                    className="dropdown-menu" 
-                    aria-labelledby="dropdownMenuButton"
-                >
-                    {this.state.codeButtons}
+                        {this.state.codeButtons}
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
     };
 }
-export default CurrencyChoice
+export default CurrencyChoice;

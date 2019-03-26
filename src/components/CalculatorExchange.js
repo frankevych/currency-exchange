@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import CurrencyChoice from "./CurrencyChoice";
-import { getCurrencies } from '../api/currencies';
+import { getCurrencies, getCurrenciesYesterday } from '../api/currencies';
 import CurrenciesTable from './CurrenciesTable';
 
 class CalculatorExchange extends Component {
     /**
-     * currency: array of objects(currency Data)
+     * currency: arr of objects(currency Data)
+     * yesterdayCurrency: ar off objects(currency Data 3days ago.)
+     * amount: users amount to calculate
+     * currencyCodeFrom: identifier by country cash code
+     * currencyCodeTo: identifier by country cash code  ps.(double rendering, with different states.)
+     * medianFrom: '',
+     * medianTo: '',   same as currencyCode. but median rate of currency.
      */
     state = {
         currency: [],
+        yesterdayCurrency: [],
         amount: '',
         currencyCodeFrom: '',
         currencyCodeTo: '',
@@ -17,20 +24,24 @@ class CalculatorExchange extends Component {
         result: '',
     };
 
-    //get data from api, set state currency with it
+    //get data from api, with set state (data loader)
     componentDidMount() {
         getCurrencies()
-          .then(res => this.setState({ currency: res.data }))
+            .then(res => this.setState({ currency: res.data }));
+        getCurrenciesYesterday()
+            .then(res => this.setState({ yesterdayCurrency: res.data }));
     };
 
-    //event handler for user input.
-    handleInputAmount = (e) => this.setState({ [e.target.name]: [e.target.value] });
+    //event handler for user input. with method call handleCalculate()
+    handleInputAmount = (e) => {
+        this.setState({ [e.target.name]: [e.target.value] });
+        this.handleCalculate(e.target.value);
+    }
 
-    //event handler calculate the result of exchange
-    //this func uses medianFrom & medianTo state choosen by user in handleChoosenCode func
-    handleCalculate = () => {
-        const { amount, medianFrom, medianTo } = this.state;
-        let result = ((amount * medianFrom) / medianTo).toFixed(2);
+    //this func uses medianFrom & medianTo state choosen by user in handleChoosenCode func 
+    handleCalculate = (value) => {
+        const { medianFrom, medianTo } = this.state;
+        let result = ((value * medianFrom) / medianTo).toFixed(2);
 
         this.setState({ result });
     };
@@ -53,49 +64,50 @@ class CalculatorExchange extends Component {
 
     render() {
         return (
-                <div className="card">
-                    <div className="card-header">
-                    
-                       <div className="parentFlex my-5">
-                            <CurrencyChoice 
-                                currencyData={this.state.currency} 
-                                choosenCode={this.handleChoosenCodeFrom} 
-                            >
-                            { this.state.currencyCodeFrom }
-                            </CurrencyChoice>
+            <div className="card">
+                <div className="card-header">
+                
+                    <div className="parentFlex my-5">
+                        <CurrencyChoice 
+                            currencyData={this.state.currency} 
+                            choosenCode={this.handleChoosenCodeFrom} 
+                        >
+                        { this.state.currencyCodeFrom }
+                        </CurrencyChoice>
 
-                            <CurrencyChoice 
-                                currencyData={this.state.currency} 
-                                choosenCode={this.handleChoosenCodeTo} 
-                            >
-                            { this.state.currencyCodeTo }
-                            </CurrencyChoice>
+                        <CurrencyChoice 
+                            currencyData={this.state.currency} 
+                            choosenCode={this.handleChoosenCodeTo} 
+                        >
+                        { this.state.currencyCodeTo }
+                        </CurrencyChoice>
 
-                            <div className="input-field ml-5">
-                                <div className="input-group">
-                                    <input 
-                                        name ="amount" 
-                                        value={this.state.amount} 
-                                        type="text" 
-                                        onChange={this.handleInputAmount} 
-                                        className="form-control" 
-                                        placeholder="enter amount.." 
-                                    />
-                                    <button type="submit" onClick={this.handleCalculate}>
-                                        { this.state.result || 'Result' }
-                                    </button>
+                        <div className="input-field ml-5">
+                            <div className="input-group">
+                                <input 
+                                    name ="amount" 
+                                    value={this.state.amount} 
+                                    type="number" 
+                                    onChange={this.handleInputAmount} 
+                                    className="form-control" 
+                                    placeholder="enter amount.." 
+                                />
+                                <div>
+                                    { this.state.result || 'Result' }
                                 </div>
-                            </div>
-                       </div>     
-                        
-                        <div className="card">
-                            <div className="card-body">
-                                <CurrenciesTable currencyData={this.state.currency}/>
+                                
                             </div>
                         </div>
-
+                    </div>     
+                    
+                    <div className="card">
+                        <div className="card-body">
+                            <CurrenciesTable currencyData={this.state.currency} currencyDataYesterday={this.state.yesterdayCurrency}/>
+                        </div>
                     </div>
+
                 </div>
+            </div>
         );
     }
 }
