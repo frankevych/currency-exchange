@@ -21,7 +21,7 @@ class CurrenciesTable extends Component {
                         <p className="code inline-block mx-3 my-n1">{ i.currency_code }</p>
                         <p className="selling-rate inline-block mx-3 my-n1">{ i.selling_rate } {}</p>
                         <p className="buying-rate inline-block mx-3 my-n1">{ i.buying_rate } {}</p>
-                        {/* calls method wich returns + if currency rate is higher than was 3 day ago. currencies.legth param is used as iterator inside called method */}
+                        {/* calls method wich returns + if currency rate is higher than was day ago. currencies.legth param is used as iterator inside called method */}
                         <p className="median-rate inline-block mx-3 my-n1">{ i.median_rate } {this.currenciesCompareRate(currencyData, currencyDataYesterday, currencies.length)}</p>
                     </li>
                 );
