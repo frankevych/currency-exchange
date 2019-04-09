@@ -1,36 +1,208 @@
-.parentFlex {
+html {
+  height: 100vh;
+}
+#root {
   display: flex;
-  justify-content: center;
 }
-.dropdown-item {
-  color: black;
+body{
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
-.input-field {
-  width: 40%;
+/*remove standart style :focus event*/
+.dropbtn:focus, input:focus{
+  outline: none;
 }
-.list-group {
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
+}
+.header { 
+  height: 10vh;
   display: flex;
   justify-content: space-between;
+  background-color: #A2CE6F;
+  opacity: 0.7;
 }
-.code {
-  font-weight: 600;
-  color: darkslateblue;
+.logo {
+  margin-top: 10px;
+  margin-left: 30px;
 }
-.selling-rate {
-  font-weight: 600;
-  color: cornflowerblue;
+.navbar {
+  margin-left: 47px;
+  padding: 30px 30px 0 0;
 }
-.buying-rate {
-  font-weight: 600;
-  color: darkkhaki;
+.navbar a{
+  text-decoration: none;
+  color: rgb(70, 70, 70);
+  font-size: 25px;
+  font-weight: bold;
+  padding-left: 30px;
 }
-.median-rate {
-  font-weight: 600;
-  color: darksalmon;
+.main-content {
+  width: 100%;
+  height: 80vh;
 }
-.inline-block {
-  display: inline-block;
-}
-.list-group-item {
+.main-content h3 {
+  font-weight: 700;
+  color: #737373;
+  padding-top: 10px;
   text-align: center;
+  box-shadow: #5B5A5A;
+  font-size: 40px;
+}
+#playMarket {
+  width: 50px;
+}
+.parentFlex {
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+  padding-top: 10vh;
+}
+.first-currency-choice {
+  width: 30vh;
+}
+/* .first-currency-choice h4 {
+  font-size: 15px;
+  color: #8A8A8A;
+  text-align: center;
+} */
+.input {
+  background: #D9D9CD;
+  border: none;
+  height: 15vh;
+  width: 30vh;
+  padding-top: 2vh;
+  border-radius: 5px;
+  color: #707070;
+}
+
+.input p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+.input input {
+  width: 100%;
+  padding-top: 4vh;
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  color: #707070;
+}
+                                  /*DROPDOWN MENU*/
+/* Dropdown Button */
+.dropbtn {
+  width: 30vh;
+  height: 45px;
+  background-color: #747474;
+  color: #D5D5D5;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+.button-style {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+.fas {
+  padding: 0 20px 0 70px;
+}
+/* Dropdown button on hover & focus */
+.dropbtn:active {
+  background-color: transparent;
+  color: #737373;
+}
+/* The container <div> - needed to position the dropdown content */
+.drop-right {
+  position: relative;
+  z-index: 1;
+}
+/* Dropdown Content (Hidden by Default) */
+.dpwn-content {
+  display: none;
+  position: absolute;
+  left: 31vh;
+  top: 0;
+  background-color: #A2CE6F;
+  opacity: 0.7;
+  border-color: transparent;
+  height: 40vh;
+  overflow-y: scroll;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+.dpwn-content button {
+  width: 65px;
+  background-color: transparent;
+  color: #707070;
+  border: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  margin: 2.5px;
+}
+.dropdownItem:hover {
+  opacity: 1;
+}
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+                                      /* FOOTER */
+.footer {
+  height: 10vh;
+  background: #434343;
+  opacity: 0.5;
+  display: flex;
+}
+#appStore, #playMarket {
+  width: 100px;
+  height: 35px;
+  margin-top: 25px;
+  margin-left: 15px;
+
+}
+#twitter {
+  margin-top: 25px;
+  margin-left: 15px;
+  width: 35px;
+  height: 35px;
+  background: #d5d5d5;
+}
+
+@media screen and (max-width: 1240px) {
+  .parentFlex {
+    display: flex;
+    /*align-items vertical align*/
+    align-items: center;
+    /*gorizontal-align*/
+    justify-content: center;
+    flex-direction: column;
+    width: 75%;
+    padding-top: 1vh;
+  }
+  .first-currency-choice {
+    font-size: 1.5vw;
+    width: 30vh;
+    padding-top: 2em;
+  }
+  .dpwn-content {
+    left: 31vh;
+    top: 0;
+    height: 25vh;
+  }
 }

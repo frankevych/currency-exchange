@@ -4,28 +4,42 @@ class CurrencyChoice extends React.Component {
     //list with currencies code
     state = {
         codeButtons: [],
+        showDropdownListClass: false,
     }
-    
+    handleDropDownItemClick = ([currency_code, median_rate]) => {
+        (this.props.choosenCode.bind(this, [currency_code, median_rate]))();
+        this.setState(prevState => ({ showDropdownListClass: !prevState.showDropdownListClass }));
+    };
     /**
-     * creating buttons per each element in currencyData &
-     * sets State codeButtons[]
+     * handles users click event
+     * creating buttons with dropdown items () => 
+     * sets State codeButtons[items.currency_code]
      */
     handleDopdownMenuClick = () => {
         const { currencyData } = this.props;
         const codeButtons = [];
+        //if dropdown list is shown, but dropdown btn has been clicked = hide menu
+        this.setState(prevState => ({ showDropdownListClass: !prevState.showDropdownListClass }), () => {
+            currencyData.map((currency) => 
+                codeButtons.push(    
+                    <button 
+                    key={currency.currency_code} 
+                    className="dropdownItem"
+                    onClick={this.handleDropDownItemClick.bind(this, [currency.currency_code, currency.median_rate])}
+                    >
+                        <span>
+                           {currency.currency_code}
+                        </span>
+                    </button>
+                )
+            );
+            this.setState({ codeButtons });
+        })
 
-        currencyData.map((currency) => 
-            codeButtons.push(    
-                <button 
-                key={currency.currency_code} 
-                className="dropdown-item"
-                onClick={this.props.choosenCode.bind(currency, [currency.currency_code, currency.median_rate])}
-                >
-                    {currency.currency_code}
-                </button>
-            )
-        );
-        this.setState({ codeButtons });
+    }
+    isShown = () => {
+        const { showDropdownListClass } = this.state;
+        return showDropdownListClass ? "show" : '';
     }
 
     render() {
@@ -33,21 +47,19 @@ class CurrencyChoice extends React.Component {
             return <div>no info</div>
         } else {
             return (
-                <div className='dropdown px-4'>
+                <div className='drop-right'>
                     <button 
                         onClick={this.handleDopdownMenuClick}
-                        className="btn btn-secondary dropdown-toggle" 
+                        className="dropbtn" 
                         type="button" 
-                        id="dropdownMenuButton" 
-                        data-toggle="dropdown" 
-                        aria-haspopup="true" 
-                        aria-expanded="false"
-                        >
-                        Currency { this.props.children }
+                        >   
+                            <div className="button-style">
+                                { this.props.children ? <p>{this.props.children}</p> : <p>Currency</p> }
+                                <i className="fas fa-angle-right"></i>
+                            </div>
                     </button>
                     <div 
-                        className="dropdown-menu" 
-                        aria-labelledby="dropdownMenuButton"
+                        className={ "dpwn-content " + this.isShown() }
                     >
                         {this.state.codeButtons}
                     </div>

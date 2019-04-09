@@ -10,6 +10,8 @@ class CurrenciesTable extends Component {
         //check if props are loaded.
         if(currencyData.length > 0 && currencyDataYesterday.length > 0) { 
             const currencies = [];
+            console.log(currencyData);
+            console.log(currencyDataYesterday);
 
             //for each data in api create and push <li> element if currencies arr.
             currencyData.map((i) => {
