@@ -54,9 +54,9 @@ class CurrencyChoice extends React.Component {
                         type="button" 
                         >   
                             <div className="button-style">
-                                { this.props.children ? <p>{this.props.children}</p> : <p>Currency</p> }
-                                <i className="fas fa-angle-right"></i>
+                                { this.props.children ? <span>{this.props.children}</span> : <span>Currency</span> }
                             </div>
+                                <i className="fas fa-angle-right"></i>
                     </button>
                     <div 
                         className={ "dpwn-content " + this.isShown() }

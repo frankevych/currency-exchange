@@ -112,14 +112,18 @@ body{
   border: none;
   cursor: pointer;
 }
-.button-style {
-  display: flex;
+ .button-style {
+  display: inline-block;
+  width: 60%;
   align-items: center;
-  justify-content: flex-end;
   height: 100%;
+  padding-top: 10px;
+} 
+.button-style span {
+  margin-left: 70px;
 }
 .fas {
-  padding: 0 20px 0 70px;
+  padding: 0 20px 0 50px;
 }
 /* Dropdown button on hover & focus */
 .dropbtn:active {
